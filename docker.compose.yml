@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -12,10 +13,11 @@ services:
       - dhparam:/etc/nginx/dhparam
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - html:/usr/share/nginx/hmtl
+      - html:/usr/share/nginx/html
     networks:
       - proxy
     restart: always
+
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx-proxy-le
@@ -27,6 +29,7 @@ services:
       - acme:/etc/acme.sh
       - html:/usr/share/nginx/html
     restart: always
+
 volumes:
   conf:
   vhost:
@@ -34,6 +37,7 @@ volumes:
   certs:
   acme:
   html:
+
 networks:
   proxy:
     name: nginx-proxy
